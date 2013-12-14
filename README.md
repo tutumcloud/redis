@@ -1,7 +1,7 @@
 tutum-docker-redis
-====================
+==================
 
-Base docker image to run a redis server
+Base docker image to run a Redis server
 
 
 Usage
@@ -12,21 +12,35 @@ To create the image `tutum/redis`, execute the following command on the tutum-re
 	sudo docker build -t tutum/redis .
 
 
-Running the redis server
---------------------------
+Running the Redis server
+------------------------
 
-Run the following command to start redis:
+Run the following command to start Redis:
 
-	ID=$(sudo docker run -d -p 6379 tutum/redis)
+	CONTAINER_ID=$(sudo docker run -d -p 6379 tutum/redis)
 
+The first time that you run your container, a new random password will be set.
+To get the password, check the logs of the container by running:
 
-It will store the new container ID (like `d35bf1374e88`) in $ID. Get the allocated external port:
+	sudo docker logs $CONTAINER_ID
 
-	sudo docker port $ID 6379
+You will see an output like the following:
 
+	========================================================================
+	You can now connect to this Redis server using:
 
-It will print the allocated port (like 6379). Test your deployment:
+	    redis-cli -a 5elsT6KtjrqVtOitprnDm7M9Vgz0MGgu -h <host> -p <port>
 
-	redis-cli -p 6379 -h 127.0.0.1
+	Please remember to change the above password as soon as possible!
+	========================================================================
+
+In this case, `5elsT6KtjrqVtOitprnDm7M9Vgz0MGgu` is the password set. To get
+the allocated port to Redis, execute:
+
+	sudo docker port $CONTAINER_ID 6379
+
+It will print the allocated port (like 4751). You can then connect to Redis:
+
+	 redis-cli -a 5elsT6KtjrqVtOitprnDm7M9Vgz0MGgu -h 127.0.0.1 -p 4751
 
 Done!
