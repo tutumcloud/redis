@@ -7,7 +7,7 @@ fi
 
 PASS=$(pwgen -s 32 1)
 echo "=> Securing redis with a random password"
-echo "requirepass $PASS" >> /etc/redis/redis.conf
+echo "requirepass $PASS" > /etc/redis/redis_default.conf
 
 echo "=> Done!"
 touch /.redis_password_set
