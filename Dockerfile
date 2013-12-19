@@ -7,8 +7,8 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y redis-server pwgen
 
 # Add scripts
-ADD ./run.sh /run.sh
-ADD ./set_redis_password.sh /set_redis_password.sh
+ADD https://raw.github.com/tutumcloud/tutum-docker-redis/master/run.sh /run.sh
+ADD https://raw.github.com/tutumcloud/tutum-docker-redis/master/set_redis_password.sh /set_redis_password.sh
 RUN chmod 755 /*.sh
 
 EXPOSE 6379
