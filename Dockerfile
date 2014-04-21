@@ -8,6 +8,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && DEBIA
 # Add scripts
 ADD run.sh /run.sh
 ADD set_redis_password.sh /set_redis_password.sh
+ADD set_redis_mode.sh /set_redis_mode.sh
 RUN chmod 755 /*.sh
 
 EXPOSE 6379

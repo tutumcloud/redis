@@ -8,7 +8,8 @@ fi
 PASS=${REDIS_PASS:-$(pwgen -s 32 1)}
 _word=$( [ ${REDIS_PASS} ] && echo "preset" || echo "random" )
 echo "=> Securing redis with a ${_word} password"
-echo "requirepass $PASS" > /etc/redis/redis_default.conf
+touch /etc/redis/redis_default.conf
+echo "requirepass $PASS" >> /etc/redis/redis_default.conf
 
 echo "=> Done!"
 touch /.redis_password_set

@@ -53,3 +53,17 @@ set the environment variable `REDIS_PASS` to your specific password when running
 You can now test your deployment:
 
 	redis-cli -a mypass
+
+
+Configuring Redis as a LRU cache
+--------------------------------
+
+In order to run Redis as a cache that will delete older entries when the memory fills up
+provide the following additional environment variables:
+
+	docker run -d -p 6379:6379 -e REDIS_MODE="LRU" -e REDIS_MAXMEMORY="256mb" tutum/redis
+
+where `REDIS_MODE` is `LRU` and `REDIS_MAXMEMORY` is the memory limit in which
+Redis will start deleting the less recently used (LRU) keys.
+
+More info at: http://redis.io/topics/lru-cache
