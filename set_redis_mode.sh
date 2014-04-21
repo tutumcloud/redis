@@ -17,5 +17,4 @@ if [ -n "$REDIS_MODE" ]; then
 	fi
 fi
 
-echo "=> Done!"
 touch /.redis_mode_set
