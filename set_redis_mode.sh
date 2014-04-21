@@ -5,8 +5,8 @@ if [ -f /.redis_mode_set ]; then
 	exit 0
 fi
 
-if [ -n $REDIS_MODE ]; then
-	if [ $REDIS_MODE == "LRU" ]; then
+if [ -n "$REDIS_MODE" ]; then
+	if [ "$REDIS_MODE" == "LRU" ]; then
 		echo "=> Configuring redis as a LRU cache"
 		MAXMEMORY=${REDIS_MAXMEMORY:-"256mb"}
 		touch /etc/redis/redis_default.conf
