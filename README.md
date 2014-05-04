@@ -67,3 +67,5 @@ where `REDIS_MODE` is `LRU` and `REDIS_MAXMEMORY` is the memory limit in which
 Redis will start deleting the less recently used (LRU) keys.
 
 More info at: http://redis.io/topics/lru-cache
+
+**by http://www.tutum.co**
