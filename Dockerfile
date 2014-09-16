@@ -11,8 +11,11 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv C7917B12 && \
 # Add scripts
 ADD run.sh /run.sh
 ADD set_redis_password.sh /set_redis_password.sh
-ADD set_redis_mode.sh /set_redis_mode.sh
-RUN chmod 755 /*.sh
+RUN chmod +x /*.sh
+
+# SET environment variables
+ENV REDIS_MODE **None**
+ENV REDIS_TIMEOUT 0
 
 EXPOSE 6379
 CMD ["/run.sh"]
