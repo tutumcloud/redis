@@ -54,6 +54,10 @@ You can now test your deployment:
 
 	redis-cli -a mypass
 
+If you hope redis work without password, you can set `REDIS_PASS` to `**None**`:
+
+    docker run -d -p 6379:6379 -e REDIS_PASS="**None**" tutum/redis
+
 
 Configuring Redis as a LRU cache
 --------------------------------

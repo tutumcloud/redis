@@ -16,6 +16,7 @@ RUN chmod +x /*.sh
 # SET environment variables
 ENV REDIS_MODE **None**
 ENV REDIS_TIMEOUT 0
+ENV REDIS_PASS **Random**
 
 EXPOSE 6379
 CMD ["/run.sh"]
