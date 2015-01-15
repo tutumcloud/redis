@@ -2,7 +2,6 @@ FROM ubuntu:trusty
 MAINTAINER Fernando Mayo <fernando@tutum.co>
 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv C7917B12 && \
-    echo "deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu quantal main" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y redis-server pwgen && \
     apt-get clean && \
