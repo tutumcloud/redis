@@ -1,32 +1,35 @@
 #!/bin/bash
 
-if [ "${REDIS_MODE}" == "**None**" ]; then
-    unset REDIS_MODE
-fi
-
 if [ "${REDIS_PASS}" == "**Random**" ]; then
     unset REDIS_PASS
 fi
 
+# Set initial configuration
 if [ ! -f /.redis_configured ]; then
-    if [ "$REDIS_MODE" == "LRU" ]; then
-        echo "=> Configuring redis as a LRU cache"
-        MAXMEMORY=${REDIS_MAXMEMORY:-"256mb"}
-        touch /etc/redis/redis_default.conf
-        echo "maxmemory $MAXMEMORY" >> /etc/redis/redis_default.conf
-        echo "maxmemory-policy allkeys-lru" >> /etc/redis/redis_default.conf
+    touch /etc/redis/redis_default.conf
+
+    if [ "${REDIS_PASS}" != "**None**" ]; then
+        PASS=${REDIS_PASS:-$(pwgen -s 32 1)}
+        _word=$( [ ${REDIS_PASS} ] && echo "preset" || echo "random" )
+        echo "=> Securing redis with a ${_word} password"
+        echo "requirepass $PASS" >> /etc/redis/redis_default.conf
+        echo "=> Done!"
+        echo "========================================================================"
+        echo "You can now connect to this Redis server using:"
+        echo ""
+        echo "    redis-cli -a $PASS -h <host> -p <port>"
+        echo ""
+        echo "Please remember to change the above password as soon as possible!"
+        echo "========================================================================"
     fi
 
-    echo "=> Setting timeout to ${REDIS_TIMEOUT}"
-    echo timeout ${REDIS_TIMEOUT} >> /etc/redis/redis_default.conf
+    unset REDIS_PASS
+
+    for i in $(printenv | grep REDIS_); do
+        echo $i | sed "s/REDIS_//" | sed "s/_/-/" | sed "s/=/ /" | sed "s/^[^ ]*/\L&\E/" >> /etc/redis/redis_default.conf
+    done
 
     touch /.redis_configured
-fi
-
-if [ "${REDIS_PASS}" != "**None**" ]; then
-    if [ ! -f /.redis_password_set ]; then
-        /set_redis_password.sh
-    fi
 fi
 
 exec /usr/bin/redis-server /etc/redis/redis_default.conf
