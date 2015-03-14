@@ -25,9 +25,21 @@ if [ ! -f /.redis_configured ]; then
 
     unset REDIS_PASS
 
+    # Backwards compatibility
+    if [ ! -z "${REDIS_MODE}" ]; then
+        echo "!! WARNING: \$REDIS_MODE is deprecated. Please use \$REDIS_MAXMEMORY_POLICY instead"
+        if [ "${REDIS_MODE}" == "LRU" ]; then
+            export REDIS_MAXMEMORY_POLICY=allkeys-lru
+            unset REDIS_MODE
+        fi
+    fi
+
     for i in $(printenv | grep REDIS_); do
         echo $i | sed "s/REDIS_//" | sed "s/_/-/" | sed "s/=/ /" | sed "s/^[^ ]*/\L&\E/" >> /etc/redis/redis_default.conf
     done
+
+    echo "=> Using redis.conf:"
+    cat /etc/redis/redis_default.conf | grep -v "requirepass"
 
     touch /.redis_configured
 fi
