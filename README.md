@@ -1,6 +1,8 @@
 tutum-docker-redis
 ==================
 
+[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
+
 Base docker image to run a Redis server
 
 
@@ -34,7 +36,7 @@ You will see an output like the following:
 	Please remember to change the above password as soon as possible!
 	========================================================================
 
-In this case, `5elsT6KtjrqVtOitprnDm7M9Vgz0MGgu` is the password set. 
+In this case, `5elsT6KtjrqVtOitprnDm7M9Vgz0MGgu` is the password set.
 You can then connect to Redis:
 
 	redis-cli -a 5elsT6KtjrqVtOitprnDm7M9Vgz0MGgu
