@@ -25,6 +25,12 @@ if [ ! -f /.redis_configured ]; then
 
     unset REDIS_PASS
 
+    # Slave of
+    if [ -n ${REDIS_SLAVEOF} ]; then
+        echo slaveof ${REDIS_SLAVEOF} 6379 >> /etc/redis/redis_default.conf
+        unset REDIS_SLAVEOF
+    fi
+
     # Backwards compatibility
     if [ ! -z "${REDIS_MODE}" ]; then
         echo "!! WARNING: \$REDIS_MODE is deprecated. Please use \$REDIS_MAXMEMORY_POLICY instead"
