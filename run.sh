@@ -26,7 +26,7 @@ if [ ! -f /.redis_configured ]; then
     unset REDIS_PASS
 
     # Slave of
-    if [ ${REDIS_SLAVEOF} ]; then
+    if [ -n ${REDIS_SLAVEOF} ]; then
         echo slaveof ${REDIS_SLAVEOF} 6379 >> /etc/redis/redis_default.conf
         unset REDIS_SLAVEOF
     fi
