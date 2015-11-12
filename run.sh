@@ -35,7 +35,7 @@ if [ ! -f /.redis_configured ]; then
     fi
 
     for i in $(printenv | grep REDIS_); do
-        echo $i | sed "s/REDIS_//" | sed "s/_/-/" | sed "s/=/ /" | sed "s/^[^ ]*/\L&\E/" >> /etc/redis/redis_default.conf
+        echo $i | sed "s/REDIS_//" | sed "s/_/-/g" | sed "s/=/ /" | sed "s/^[^ ]*/\L&\E/" >> /etc/redis/redis_default.conf
     done
 
     echo "=> Using redis.conf:"
